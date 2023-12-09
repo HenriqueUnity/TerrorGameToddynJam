@@ -9,11 +9,12 @@ public class crouch : MonoBehaviour
     public CinemachineVirtualCamera myCam;
     bool isCrouched; 
     private GameObject firstPov;
+    private CharacterController m_Controller;
     void Start()
     {
 firstPov = GameObject.Find("Pov").gameObject;
  myCam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
-        
+  m_Controller = GetComponentInParent<CharacterController>();      
     }
 
     
@@ -34,12 +35,16 @@ firstPov = GameObject.Find("Pov").gameObject;
     void Crouching(){
      if(!isCrouched)
          {
-       myCam.Follow = gameObject.transform; 
        isCrouched = true;
+       myCam.Follow = gameObject.transform; 
+       m_Controller.height = 1;
+       m_Controller.center = new Vector3(0,-0.5f,0);
          }
     else{
-            myCam.Follow = firstPov.transform;
             isCrouched = false;
+            myCam.Follow = firstPov.transform;
+            m_Controller.height = 2;
+             m_Controller.center = Vector3.zero;
 
         }
     }
