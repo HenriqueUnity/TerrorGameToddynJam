@@ -8,10 +8,12 @@ public class movement : MonoBehaviour
    private CharacterController characterController;
    [SerializeField] float speed = 5f;
    private Transform myCamera;
+   
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         myCamera = Camera.main.transform;
+        
 
     }
 
@@ -23,4 +25,6 @@ public class movement : MonoBehaviour
     playerInput = transform.TransformDirection(playerInput);
     characterController.Move(playerInput * Time.deltaTime * speed) ;   
     }
+
+        
 }
