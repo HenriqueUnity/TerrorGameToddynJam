@@ -11,7 +11,7 @@ public class crouch : MonoBehaviour
     private GameObject firstPov;
     private CharacterController m_Controller;
 
-    
+    public bool CrouchingState;
     void Start()
     {
 firstPov = GameObject.Find("Pov").gameObject;
@@ -40,11 +40,16 @@ firstPov = GameObject.Find("Pov").gameObject;
         if(!isCrouched )
          {
        isCrouched = true;
+       CrouchingState = isCrouched;
+       Debug.Log("crouch"+ CrouchingState);
        myCam.Follow = gameObject.transform; 
        m_Controller.height = 1;
        m_Controller.center = new Vector3(0,-0.5f,0);
+       
          }else{
             isCrouched = false;
+           CrouchingState = isCrouched;
+           Debug.Log("crouch"+ CrouchingState);
             myCam.Follow = firstPov.transform;
             m_Controller.height = 2;
              m_Controller.center = Vector3.zero;
