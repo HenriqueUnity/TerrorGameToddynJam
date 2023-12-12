@@ -41,7 +41,7 @@ firstPov = GameObject.Find("Pov").gameObject;
          {
        isCrouched = true;
        CrouchingState = isCrouched;
-       Debug.Log("crouch"+ CrouchingState);
+       
        myCam.Follow = gameObject.transform; 
        m_Controller.height = 1;
        m_Controller.center = new Vector3(0,-0.5f,0);
@@ -49,7 +49,7 @@ firstPov = GameObject.Find("Pov").gameObject;
          }else{
             isCrouched = false;
            CrouchingState = isCrouched;
-           Debug.Log("crouch"+ CrouchingState);
+          
             myCam.Follow = firstPov.transform;
             m_Controller.height = 2;
              m_Controller.center = Vector3.zero;

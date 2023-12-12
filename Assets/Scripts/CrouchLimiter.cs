@@ -7,45 +7,47 @@ public class CrouchLimiter : MonoBehaviour
  
 
     
-   private GameObject jogador;
+   private GameObject player;
     
-    public float distanciaDeDetecao = 0.5f;
+    public float detectionDistance = 0.5f;
     
    
     void Start()
     {
-     jogador = GameObject.Find("player");
+     player = GameObject.Find("player");
     }
     private void Update()
     {
-        // Obtém a posição do jogador
-        Vector3 posicaoDoJogador = ObterPosicaoDoJogador();
+      
+        Vector3 playerPosition = GetPlayerPosition();
 
-        // Calcula a distância entre o objeto e o jogador
-        float distancia = Vector3.Distance(transform.position, posicaoDoJogador);
+      
+        float distancia = Vector3.Distance(transform.position, playerPosition);
 
-        // Verifica se o jogador está dentro da distância de detecção
-        if (distancia < distanciaDeDetecao )
+        if (distancia> detectionDistance){
+            if(!player.GetComponentInChildren<crouch>().enabled ){
+             player.GetComponentInChildren<crouch>().enabled = true;   
+            }
+
+        }
+        if (distancia < detectionDistance )
         {
            
-        jogador.GetComponentInChildren<crouch>().enabled = false;   
-        }else{
-            jogador.GetComponentInChildren<crouch>().enabled = true;  
+        player.GetComponentInChildren<crouch>().enabled = false;   
         }
     }
 
-    private Vector3 ObterPosicaoDoJogador()
+    private Vector3 GetPlayerPosition()
     {       
 
-        if (jogador != null)
+        if (player != null)
         {
-            // Obtém o CharacterController do jogador
-            CharacterController characterController = jogador.GetComponent<CharacterController>();
+          
+            CharacterController characterController = player.GetComponent<CharacterController>();
 
-            // Retorna a posição do jogador (pode ser o centro do CharacterController ou a posição da cabeça, dependendo do seu jogo)
-            return characterController != null ? characterController.transform.position : jogador.transform.position;
+            return characterController != null ? characterController.transform.position : player.transform.position;
         }
 
-        return Vector3.zero; // Retorna (0, 0, 0) se o jogador não for encontrado
+        return Vector3.zero;
     }
 }
