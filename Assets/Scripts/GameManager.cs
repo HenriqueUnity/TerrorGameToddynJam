@@ -5,19 +5,49 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+   [SerializeField]private int sceneToload;
+   [SerializeField]private float detectionDistance= 1f;
+
+   private GameObject player;
     void Start()
     {
-        
+        player =  GameObject.Find("player");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void GameOver(){
-     SceneManager.LoadScene(1);
+     SceneManager.LoadScene(0);
     }
 
+     private void Update()
+    {
+      
+        Vector3 playerPosition = GetPlayerPosition();
+
+      
+        float distancia = Vector3.Distance(transform.position, playerPosition);
+
+     
+        if (distancia < detectionDistance  && Input.GetKeyDown(KeyCode.E))
+        {
+           NextScene();     
+        }
+    }
+
+    private Vector3 GetPlayerPosition()
+    {       
+
+        if (player != null)
+        {
+          
+            CharacterController characterController = player.GetComponent<CharacterController>();
+
+            return characterController != null ? characterController.transform.position : player.transform.position;
+        }
+
+        return Vector3.zero;
+    }
+
+    public void NextScene(){
+        SceneManager.LoadScene(sceneToload);
+    }
 }

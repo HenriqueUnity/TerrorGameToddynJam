@@ -6,6 +6,8 @@ public class doorUpDown : MonoBehaviour
 {
     private Vector3 initialPosition;
     [SerializeField] private Transform closePosition;
+    private AudioSource m_audiosource;
+    [SerializeField] private AudioClip clip;
     bool doorState;
     bool coolDown;
     
@@ -13,7 +15,7 @@ public class doorUpDown : MonoBehaviour
     void Start()
     {
       initialPosition = transform.position;  
-      
+      m_audiosource = GetComponent<AudioSource>();
     }
 
    
@@ -41,6 +43,7 @@ public class doorUpDown : MonoBehaviour
     }
     private IEnumerator SmoothMove(Vector3 start, Vector3 end, float speed)
     {
+      m_audiosource.PlayOneShot(clip);
         float t = 0f;
         while (t < 1.0f)
         {

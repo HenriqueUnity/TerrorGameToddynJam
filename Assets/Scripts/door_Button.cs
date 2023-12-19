@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,9 +10,20 @@ public class door_Button : MonoBehaviour
     [SerializeField] private GameObject doorToInteract;
     private colorswitch colorSwitch;
     public float distanceDeDetecao = 3f;
+    private OneTimeDoor oneTime;
+    
     
     void Start(){
    colorSwitch = GetComponent<colorswitch>();
+    try
+    {
+        oneTime = GetComponent<OneTimeDoor>();
+    }
+    catch (System.Exception )
+    {
+        
+        Debug.LogWarning("sem uso unico");
+    }
     }
     private void Update()
     {
@@ -26,6 +38,9 @@ public class door_Button : MonoBehaviour
         {
             colorSwitch.SwitchColor();
             doorToInteract.GetComponent<doorUpDown>().CloseDoor();
+            if(oneTime != null){
+                oneTime.DeactiveButton();
+            }
         }
     }
 
